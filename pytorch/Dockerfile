@@ -1,21 +1,17 @@
-FROM tensorflow/tensorflow:devel-py3
+FROM nvcr.io/nvidia/cuda:10.1-cudnn7-devel-centos7
 
-RUN apt-get update -y \
-    && pip install jupyter notebook keras sklearn pandas numpy matplotlib -i https://pypi.tuna.tsinghua.edu.cn/simple \
-    && wget https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow_cpu-2.1.0-cp36-cp36m-manylinux2010_x86_64.whl \
-    && pip install ./tensorflow_cpu-2.1.0-cp36-cp36m-manylinux2010_x86_64.whl \
-    && rm -f ./tensorflow_cpu-2.1.0-cp36-cp36m-manylinux2010_x86_64.whl \
-    && mkdir /dataset \
-    && mkdir /workspace \
-    && mkdir /logs
-# COPY prepare.sh /root/.jupyter/prepare.sh
-# RUN chmod +x /root/.jupyter/prepare.sh
+# install python3
+RUN yum install -y python3
 
-# ENV PATH=$PATH:/usr/local/bin
+# get & install pip
+RUN curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+RUN python2 /tmp/get-pip.py && python3 /tmp/get-pip.py
 
-VOLUME /dataset
-VOLUME /workspace
-VOLUME /logs
+# install requirements
+RUN pip2 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib
+RUN pip3 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib
 
-EXPOSE 8888
+RUN pip2 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+RUN pip3 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+
 CMD ["/bin/bash"]
