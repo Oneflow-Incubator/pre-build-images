@@ -11,7 +11,7 @@ RUN python2 /tmp/get-pip.py && python3 /tmp/get-pip.py
 RUN pip2 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib
 RUN pip3 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib
 
-RUN pip2 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+# RUN pip2 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip3 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
 
 CMD ["/bin/bash"]
