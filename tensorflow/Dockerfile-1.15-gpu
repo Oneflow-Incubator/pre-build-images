@@ -23,5 +23,8 @@ COPY prepare.sh /root/.jupyter/prepare.sh
 # mkdir
 RUN chmod +x /root/.jupyter/prepare.sh && mkdir /dataset /workspace /logs
 
+# upgrade
+RUN ln -sf /usr/bin/python3 /usr/bin/python && pip install -U setuptools
+
 EXPOSE 8888
 CMD ["/bin/bash"]
