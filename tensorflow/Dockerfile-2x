@@ -9,10 +9,10 @@ RUN python2 /tmp/get-pip.py && python3 /tmp/get-pip.py
 
 # install requirements
 RUN pip2 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib \ 
-    tensorflow==2.2.0
+    tensorflow==2.1.0
 
 RUN pip3 --no-cache-dir install jupyter notebook keras sklearn pandas numpy matplotlib \ 
-    tensorflow==2.2.0
+    tensorflow==2.1.0
 
 # clean cache
 RUN yum clean all
@@ -21,7 +21,7 @@ RUN yum clean all
 COPY prepare.sh /root/.jupyter/prepare.sh
 
 # mkdir
-RUN mkdir /dataset /workspace /logs
+RUN chmod +x /root/.jupyter/prepare.sh && mkdir /dataset /workspace /logs
 
 EXPOSE 8888
 CMD ["/bin/bash"]

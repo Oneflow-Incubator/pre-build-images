@@ -21,7 +21,7 @@ RUN yum clean all
 COPY prepare.sh /root/.jupyter/prepare.sh
 
 # mkdir
-RUN mkdir /dataset /workspace /logs
+RUN chmod +x /root/.jupyter/prepare.sh && mkdir /dataset /workspace /logs
 
 EXPOSE 8888
 CMD ["/bin/bash"]
